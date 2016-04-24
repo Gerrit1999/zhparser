@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="zhparser">
+</Property><Property Name="解决方案文件" Value="D:\dev_works\full_text_search-with-python\zhparser\zhparser.sln">
+</Property><Property Name="用户选项文件" Value="D:\dev_works\full_text_search-with-python\zhparser\zhparser.suo">
+</Property><Property Name="Date" Value="2016年4月24日">
+</Property><Property Name="Time" Value="13:31">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="zhparser.sln" Description="文件已成功备份为 D:\dev_works\full_text_search-with-python\zhparser\zhparser.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="zhparser.suo" Description="文件已成功备份为 D:\dev_works\full_text_search-with-python\zhparser\zhparser.suo.old">
+</Event><Event ErrorLevel="0" Project="zhparser" Source="zhparser.vcproj" Description="Converting project file 'D:\dev_works\full_text_search-with-python\zhparser\zhparser.vcproj'.">
+</Event><Event ErrorLevel="1" Project="zhparser" Source="zhparser.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="zhparser" Source="zhparser.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="zhparser" Source="zhparser.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="0" Project="zhparser" Source="zhparser.vcproj" Description="Done converting to new project file 'D:\dev_works\full_text_search-with-python\zhparser\zhparser.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="zhparser" Source="zhparser.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="Converting project file 'D:\dev_works\full_text_search-with-python\scws\win32\libscws.vcproj'.">
+</Event><Event ErrorLevel="1" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="MSB8012: $(TargetPath) ('D:\dev_works\full_text_search-with-python\scws\win32\.\../Debug\libscws.lib') does not match the Librarian's OutputFile property value '.\../Debug\libscws.lib' ('D:\dev_works\full_text_search-with-python\zhparser\../Debug\libscws.lib') in project configuration 'Debug|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="1" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="MSB8012: $(TargetPath) ('D:\dev_works\full_text_search-with-python\scws\win32\.\../Release\libscws.lib') does not match the Librarian's OutputFile property value '.\../Release\libscws.lib' ('D:\dev_works\full_text_search-with-python\zhparser\../Release\libscws.lib') in project configuration 'Release|Win32'. This may cause your project to build incorrectly. To correct this, please make sure that $(TargetPath) property value matches the value specified in %(Lib.OutputFile).">
+</Event><Event ErrorLevel="0" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="Done converting to new project file 'D:\dev_works\full_text_search-with-python\scws\win32\libscws.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="libscws" Source="..\scws\win32\libscws.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="zhparser.sln" Description="成功转换解决方案">
+</Event><Event ErrorLevel="3" Project="" Source="zhparser.sln" Description="Converted">
+</Event></UpgradeLog>

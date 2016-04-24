@@ -1,3 +1,12 @@
+0.2.0 (2015-xx-xx)
+-- optimize memory usage for zhparser
+-- support load multi dict
+-- export SCWS settings to GUC
+-- make context of dict_in_memory and extra_dicts to backend,others to userset
+-- fix a bug of unknow type index out of range
+-- detect dict file type from file extension
+-- add check script to run regress
+
 0.1.4 (2013-11-03)
 -- fix pgxn meta
 
