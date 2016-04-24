@@ -11,9 +11,9 @@ INSTALL
 1.安装SCWS
 
 ```
- wget -q -O - http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xf -
+ wget -q -O - http://www.xunsearch.com/scws/down/scws-1.2.3.tar.bz2 | tar xf -
 
- cd scws-1.2.2 ; ./configure ; make install
+ cd scws-1.2.3 ; ./configure ; make install
 
 注意:在FreeBSD release 10及以上版本上运行configure时，需要增加--with-pic选项。
 
@@ -110,6 +110,54 @@ SELECT to_tsquery('testzhcfg', '保障房资金压力');
 5) 删除词作法，请将词性设为“!“，则表示该词设为无效，即使在其它核心库中存在该词也视为无效 
 
 注意：自定义词典的格式可以是文本TXT，也可以是二进制的XDB格式。XDB格式效率更高，适合大辞典使用。可以使用scws自带的工具scws-gen-dict将文本词典转换为XDB格式。具体参见：http://www.xunsearch.com/scws/docs.php#utilscws 
+
+
+Windows 支持
+--------
+kerneltravel[改进了zhparser在windows下的VS2010工程环境](https://github.com/kerneltravel/zhparser)。
+
+windows下的测试软件是 [pg 9.5.2 windows安装版](http://get.enterprisedb.com/postgresql/postgresql-9.5.2-1-windows.exe)，scws，VS 2010 Express
+获取[scws 1.2.3](https://github.com/kerneltravel/scws)源码后，将scws目录和zhparser目录 这2个目录 放在同一层目录，比如TOP目录里面有scws目录和zhparser目录。
+VS2010直接打开zhparser目录内的zhparser.sln，开始编译（建议用Release模式）得到zhparser.dll。 
+
+**注意** 
+你的zhparser.sln 项目依赖的头文件和lib文件位置，请根据你依赖软件的位置相应调整。
+比如我的header信息(属性-C/C++ - 常规 - 附加包含目录)：
+```
+D:\install\postgresql\9.5\include;D:\install\postgresql\9.5\include\server\port;D:\install\PostgreSQL\9.5\include\server;D:\install\postgresql\9.5\include\server\port\win32_msvc;D:\install\postgresql\9.5\include\server\port\win32;D:\TOP\scws\libscws;%(AdditionalIncludeDirectories)
+```
+我的 link路径信息(属性 - 链接器 - 常规 - 附加库目录)：
+```
+D:\install\PostgreSQL\9.5\lib;D:\TOP\zhparser;%(AdditionalLibraryDirectories)
+```
+
+**vs工程设置时的其他注意事项可以参考[这里](http://blog.2ndquadrant.com/compiling-postgresql-extensions-visual-studio-windows/) 。
+**
+
+zhparser的相关文件位置，参考 linux下的放置，windows下类似：
+（参考linux下的 自动安装位置）。
+
+```
+make install
+/bin/mkdir -p '/usr/pgsql-9.4/lib'
+/bin/mkdir -p '/usr/pgsql-9.4/share/extension'
+/bin/mkdir -p '/usr/pgsql-9.4/share/extension'
+/bin/mkdir -p '/usr/pgsql-9.4/share/tsearch_data'
+/usr/bin/install -c -m 755  zhparser.so '/usr/pgsql-9.4/lib/zhparser.so'
+/usr/bin/install -c -m 644 zhparser.control '/usr/pgsql-9.4/share/extension/'
+/usr/bin/install -c -m 644 zhparser--1.0.sql zhparser--unpackaged--1.0.sql '/usr/pgsql-9.4/share/extension/'
+/usr/bin/install -c -m 644 dict.utf8.xdb rules.utf8.ini '/usr/pgsql-9.4/share/tsearch_data/'
+```
+
+但是目前根据[francs3的文档](http://francs3.blog.163.com/blog/static/405767272015065565069/) 执行：
+
+```
+ALTER TEXT SEARCH CONFIGURATION chinesefts ADD MAPPING FOR  n,v,a,i,e,l WITH simple; 
+```
+的时候，windows下运行的pgsql 9.5.2服务主动断开连接了。原因未知。希望有人能继续解决这个问题！！
+
+
+
 
 COPYRITE
 --------
