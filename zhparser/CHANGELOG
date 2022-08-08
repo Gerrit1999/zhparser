@@ -1,4 +1,18 @@
-0.2.0 (2015-xx-xx)
+2.2 (2021-11-08)
+-- move custom word from /base/${DATABASE_ID}/zhprs_dict_${DATABASE_NAME}.txt to /base/zhprs_dict_${DATABASE_NAME}.txt(data don't have /base/${DATABASE_ID} when tablespace is setted)
+
+2.1 (2019-04-23)
+-- custom word store in DataDir.
+
+2.0 (2019-03-05)
+-- support custom word in table zhparser.zhprs_custom_word
+
+0.2.0 (2017-05-28)
+-- fix regression test
+-- make pg_config configurable
+-- optimize doc
+
+0.1.5 (2017-05-24)
 -- optimize memory usage for zhparser
 -- support load multi dict
 -- export SCWS settings to GUC
@@ -6,6 +20,7 @@
 -- fix a bug of unknow type index out of range
 -- detect dict file type from file extension
 -- add check script to run regress
+-- update scws to version 1.2.3 in install doc
 
 0.1.4 (2013-11-03)
 -- fix pgxn meta

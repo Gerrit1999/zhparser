@@ -1,13 +1,18 @@
 Zhparser
 ========
 
-Zhparser is a PostgreSQL extension for full-text search of Chinese.It implements a Chinese parser base on 
-the Simple Chinese Word Segmentation(SCWS).
+Zhparser is a PostgreSQL extension for full-text search of Chinese language (Mandarin Chinese). It implements a Chinese language parser base on 
+the [Simple Chinese Word Segmentation(SCWS)](https://github.com/hightman/scws).
 
-Project home page：http://blog.amutu.com/zhparser/
+Project home page: http://blog.amutu.com/zhparser/
 
 INSTALL
 -------
+0.前置条件
+
+zhparser支持PostgreSQL 9.2及以上版本，请确保你的PG版本符合要求。 
+对于REDHAT/CentOS Linux系统，请确保安装了相关的库和头文件，一般它们在postgresql-devel软件包中。 
+
 1.安装SCWS
 
 ```
@@ -31,9 +36,16 @@ INSTALL
 3.编译和安装zhparser
 
 ```
- SCWS_HOME=/usr/local make && make install
+ make && make install
 
 ```
+如果你同时安装了多个版本的PostgreSQL, 可以通过指定 PG\_CONFIG 来为指定的版本编译扩展：
+
+```
+ PG_CONFIG=/usr/lib/postgresql/9.5/bin/pg_config make && make install
+
+```
+
 注意:在*BSD上编译安装时，使用gmake代替make
 
 4.创建extension
@@ -47,21 +59,28 @@ CONFIGURATION
 -------
 以下配置在PG9.2及以上版本使用,这些选项是用来控制字典加载行为和分词行为的,这些选项都不是必须的,默认都为false(即如果没有在配置文件中设置这些选项，则zhparser的行为与将下面的选项设置为false一致)。
 
+忽略所有的标点等特殊符号: 
 zhparser.punctuation_ignore = f 
 
+闲散文字自动以二字分词法聚合: 
 zhparser.seg_with_duality = f 
 
+将词典全部加载到内存里: 
 zhparser.dict_in_memory = f 
 
+短词复合: 
 zhparser.multi_short = f 
 
+散字二元复合: 
 zhparser.multi_duality = f 
 
+重要单字复合: 
 zhparser.multi_zmain = f 
 
+全部单字复合: 
 zhparser.multi_zall = f 
 
-除了zhparser自带的词典，用户可以增加自定义词典，自定义词典的优先级高于自带的词典。自定义词典的文件必须放在share/postgresql/tsearch_data目录中,zhparser根据文件扩展名确定词典的格式类型，.txt扩展名表示词典是文本格式，.xdb扩展名表示这个词典是xdb格式，多个文件使用逗号分隔,词典的分词优先级由低到高,如：  
+除了zhparser自带的词典，用户可以增加自定义词典，自定义词典的优先级高于自带的词典。自定义词典的文件必须放在share/tsearch_data目录中,zhparser根据文件扩展名确定词典的格式类型，.txt扩展名表示词典是文本格式，.xdb扩展名表示这个词典是xdb格式，多个文件使用逗号分隔,词典的分词优先级由低到高,如：  
 
 zhparser.extra_dicts = 'dict_extra.txt,mydict.xdb' 
 
@@ -101,62 +120,52 @@ SELECT to_tsquery('testzhcfg', '保障房资金压力');
 
 1) 每行一条记录，以 # 或 分号开头的相当于注释，忽略跳过 
 
-2) 每行由4个字段组成，依次为“词语"(由中文字或3个以下的字母合成), "TF", "IDF", "词性"，字段时间用空格或制表符分开，数量不限，可自行对齐以美化 
+2) 每行由4个字段组成，依次为“词语"(由中文字或3个以下的字母合成), "TF", "IDF", "词性"，字段使用空格或制表符分开，数量不限，可自行对齐以美化 
 
 3) 除“词语”外，其它字段可忽略不写。若忽略，TF和IDF默认值为 1.0 而 词性为 "@" 
 
 4) 由于 TXT 库动态加载（内部监测文件修改时间自动转换成 xdb 存于系统临时目录），故建议TXT词库不要过大 
 
-5) 删除词作法，请将词性设为“!“，则表示该词设为无效，即使在其它核心库中存在该词也视为无效 
+5) 删除词做法，请将词性设为“!“，则表示该词设为无效，即使在其它核心库中存在该词也视为无效 
 
-注意：自定义词典的格式可以是文本TXT，也可以是二进制的XDB格式。XDB格式效率更高，适合大辞典使用。可以使用scws自带的工具scws-gen-dict将文本词典转换为XDB格式。具体参见：http://www.xunsearch.com/scws/docs.php#utilscws 
+注意：1.自定义词典的格式可以是文本TXT，也可以是二进制的XDB格式。XDB格式效率更高，适合大辞典使用。可以使用scws自带的工具scws-gen-dict将文本词典转换为XDB格式；2.zhparser默认的词典是简体中文，如果需要繁体中文，可以在[这里](http://www.xunsearch.com/scws/download.php)下载已经生成好的XDB格式此词典。3.自定义词典的例子可以参考[dict_extra.txt](https://github.com/amutu/zhparser/blob/master/dict_extra.txt)。更多信息参见[SCWS官方文档](http://www.xunsearch.com/scws/docs.php#utilscws)。
+
+自定义词库 2.1
+-------
+** 自定义词库2.1 增加自定义词库的易容性, 并兼容1.0提供的功能 **
 
 
-Windows 支持
---------
-kerneltravel[改进了zhparser在windows下的VS2010工程环境](https://github.com/kerneltravel/zhparser)。
+自定义词库需要superuser权限, 自定义库是数据库级别的(不是实例),每个数据库拥有自己的自定义分词, 并存储在data目录下base/数据库ID下(2.0 版本存储在share/tsearch_data下)
 
-windows下的测试软件是 [pg 9.5.2 windows安装版](http://get.enterprisedb.com/postgresql/postgresql-9.5.2-1-windows.exe)，scws，VS 2010 Express
-获取[scws 1.2.3](https://github.com/kerneltravel/scws)源码后，将scws目录和zhparser目录 这2个目录 放在同一层目录，比如TOP目录里面有scws目录和zhparser目录。
-VS2010直接打开zhparser目录内的zhparser.sln，开始编译（建议用Release模式）得到zhparser.dll。 
-
-**注意** 
-你的zhparser.sln 项目依赖的头文件和lib文件位置，请根据你依赖软件的位置相应调整。
-比如我的header信息(属性-C/C++ - 常规 - 附加包含目录)：
+生成环境版本升级(新环境直接安装就可以)：
+	alter extension zhparser update ;
 ```
-D:\install\postgresql\9.5\include;D:\install\postgresql\9.5\include\server\port;D:\install\PostgreSQL\9.5\include\server;D:\install\postgresql\9.5\include\server\port\win32_msvc;D:\install\postgresql\9.5\include\server\port\win32;D:\TOP\scws\libscws;%(AdditionalIncludeDirectories)
-```
-我的 link路径信息(属性 - 链接器 - 常规 - 附加库目录)：
-```
-D:\install\PostgreSQL\9.5\lib;D:\TOP\zhparser;%(AdditionalLibraryDirectories)
-```
+test=# SELECT * FROM ts_parse('zhparser', '保障房资金压力');
+ tokid | token
+-------+-------
+   118 | 保障
+   110 | 房
+   110 | 资金
+   110 | 压力
 
-**vs工程设置时的其他注意事项可以参考[这里](http://blog.2ndquadrant.com/compiling-postgresql-extensions-visual-studio-windows/) 。
-**
+test=# insert into zhparser.zhprs_custom_word values('资金压力');
+--删除词insert into zhprs_custom_word(word, attr) values('word', '!');
+--\d zhprs_custom_word 查看其表结构，支持TD, IDF
+test=# select sync_zhprs_custom_word();
+ sync_zhprs_custom_word
+------------------------
 
-zhparser的相关文件位置，参考 linux下的放置，windows下类似：
-（参考linux下的 自动安装位置）。
+(1 row)
 
+test=# \q --sync 后重新建立连接
+[lzzhang@lzzhang-pc bin]$ ./psql -U lzzhang -d test -p 1600
+test=# SELECT * FROM ts_parse('zhparser', '保障房资金压力');
+ tokid |  token
+-------+----------
+   118 | 保障
+   110 | 房
+   120 | 资金压力
 ```
-make install
-/bin/mkdir -p '/usr/pgsql-9.4/lib'
-/bin/mkdir -p '/usr/pgsql-9.4/share/extension'
-/bin/mkdir -p '/usr/pgsql-9.4/share/extension'
-/bin/mkdir -p '/usr/pgsql-9.4/share/tsearch_data'
-/usr/bin/install -c -m 755  zhparser.so '/usr/pgsql-9.4/lib/zhparser.so'
-/usr/bin/install -c -m 644 zhparser.control '/usr/pgsql-9.4/share/extension/'
-/usr/bin/install -c -m 644 zhparser--1.0.sql zhparser--unpackaged--1.0.sql '/usr/pgsql-9.4/share/extension/'
-/usr/bin/install -c -m 644 dict.utf8.xdb rules.utf8.ini '/usr/pgsql-9.4/share/tsearch_data/'
-```
-
-但是目前根据[francs3的文档](http://francs3.blog.163.com/blog/static/405767272015065565069/) 执行：
-
-```
-ALTER TEXT SEARCH CONFIGURATION chinesefts ADD MAPPING FOR  n,v,a,i,e,l WITH simple; 
-```
-的时候，windows下运行的pgsql 9.5.2服务主动断开连接了。原因未知。希望有人能继续解决这个问题！！
-
-
 
 
 COPYRITE
@@ -164,7 +173,7 @@ COPYRITE
 
 zhparser
 
-Portions Copyright (c) 2012-2013, Jov(amutu@amutu.com)
+Portions Copyright (c) 2012-2017, Jov(amutu@amutu.com)
 
 Permission to use, copy, modify, and distribute this software and its documentation
 for any purpose, without fee, and without a written agreement is hereby granted,
