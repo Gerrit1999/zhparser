@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zhparser", "zhparser.vcxproj", "{2BC78128-D7A6-4BED-9FBF-746420E62063}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libscws", "..\scws\win32\libscws.vcxproj", "{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}"
@@ -8,19 +10,32 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Debug|Win32.ActiveCfg = Debug|Win32
 		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Debug|Win32.Build.0 = Debug|Win32
+		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Debug|x64.ActiveCfg = Debug|x64
+		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Debug|x64.Build.0 = Debug|x64
 		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Release|Win32.ActiveCfg = Release|Win32
 		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Release|Win32.Build.0 = Release|Win32
+		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Release|x64.ActiveCfg = Release|x64
+		{2BC78128-D7A6-4BED-9FBF-746420E62063}.Release|x64.Build.0 = Release|x64
 		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Debug|Win32.ActiveCfg = Debug|Win32
 		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Debug|Win32.Build.0 = Debug|Win32
+		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Debug|x64.ActiveCfg = Debug|x64
+		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Debug|x64.Build.0 = Debug|x64
 		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Release|Win32.ActiveCfg = Release|Win32
 		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Release|Win32.Build.0 = Release|Win32
+		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Release|x64.ActiveCfg = Release|x64
+		{893E9BEE-1010-4CDD-BD3B-F9B33DCC02EF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06468F83-88F3-47FC-93FD-DD3E70E4E6D4}
 	EndGlobalSection
 EndGlobal
