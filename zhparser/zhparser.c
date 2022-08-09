@@ -361,89 +361,103 @@ zhprs_lextype(PG_FUNCTION_ARGS)
 	PG_RETURN_POINTER(descr);
 }
 
+char *pstrdup_call(const char *src)
+{
+	char *dst;
+	int len;
+ 
+	if (src == NULL) 
+		return NULL;
+ 
+	len = strlen(src) + 1;
+	dst = (char *) palloc(len);
+	memcpy(dst, src, len);
+	return dst;
+}
+
 static void init_type(LexDescr descr[]){
 	/* 
 	* there are 26 types in this parser,alias from a to z
 	* for full attr explanation,visit http://www.xunsearch.com/scws/docs.php#attr
 	*/
 	descr[0].lexid = 97;
-	descr[0].alias = pstrdup("a");
-	descr[0].descr = pstrdup("adjective");
+	descr[0].alias = pstrdup_call("a");
+	descr[0].descr = pstrdup_call("adjective");
 	descr[1].lexid = 98;
-	descr[1].alias = pstrdup("b");
-	descr[1].descr = pstrdup("differentiation (qu bie)");
+	descr[1].alias = pstrdup_call("b");
+	descr[1].descr = pstrdup_call("differentiation (qu bie)");
 	descr[2].lexid = 99;
-	descr[2].alias = pstrdup("c");
-	descr[2].descr = pstrdup("conjunction");
+	descr[2].alias = pstrdup_call("c");
+	descr[2].descr = pstrdup_call("conjunction");
 	descr[3].lexid = 100;
-	descr[3].alias = pstrdup("d");
-	descr[3].descr = pstrdup("adverb");
+	descr[3].alias = pstrdup_call("d");
+	descr[3].descr = pstrdup_call("adverb");
 	descr[4].lexid = 101;
-	descr[4].alias = pstrdup("e");
-	descr[4].descr = pstrdup("exclamation");
+	descr[4].alias = pstrdup_call("e");
+	descr[4].descr = pstrdup_call("exclamation");
 	descr[5].lexid = 102;
-	descr[5].alias = pstrdup("f");
-	descr[5].descr = pstrdup("position (fang wei)");
+	descr[5].alias = pstrdup_call("f");
+	descr[5].descr = pstrdup_call("position (fang wei)");
 	descr[6].lexid = 103;
-	descr[6].alias = pstrdup("g");
-	descr[6].descr = pstrdup("root (ci gen)");
+	descr[6].alias = pstrdup_call("g");
+	descr[6].descr = pstrdup_call("root (ci gen)");
 	descr[7].lexid = 104;
-	descr[7].alias = pstrdup("h");
-	descr[7].descr = pstrdup("head");
+	descr[7].alias = pstrdup_call("h");
+	descr[7].descr = pstrdup_call("head");
 	descr[8].lexid = 105;
-	descr[8].alias = pstrdup("i");
-	descr[8].descr = pstrdup("idiom");
+	descr[8].alias = pstrdup_call("i");
+	descr[8].descr = pstrdup_call("idiom");
 	descr[9].lexid = 106;
-	descr[9].alias = pstrdup("j");
-	descr[9].descr = pstrdup("abbreviation (jian lue)");
+	descr[9].alias = pstrdup_call("j");
+	descr[9].descr = pstrdup_call("abbreviation (jian lue)");
 	descr[10].lexid = 107;
-	descr[10].alias = pstrdup("k");
-	descr[10].descr = pstrdup("head");
+	descr[10].alias = pstrdup_call("k");
+	descr[10].descr = pstrdup_call("head");
 	descr[11].lexid = 108;
-	descr[11].alias = pstrdup("l");
-	descr[11].descr = pstrdup("tmp (lin shi)");
+	descr[11].alias = pstrdup_call("l");
+	descr[11].descr = pstrdup_call("tmp (lin shi)");
 	descr[12].lexid = 109;
-	descr[12].alias = pstrdup("m");
-	descr[12].descr = pstrdup("numeral");
+	descr[12].alias = pstrdup_call("m");
+	descr[12].descr = pstrdup_call("numeral");
 	descr[13].lexid = 110;
-	descr[13].alias = pstrdup("n");
-	descr[13].descr = pstrdup("noun");
+	descr[13].alias = pstrdup_call("n");
+	descr[13].descr = pstrdup_call("noun");
 	descr[14].lexid = 111;
-	descr[14].alias = pstrdup("o");
-	descr[14].descr = pstrdup("onomatopoeia");
+	descr[14].alias = pstrdup_call("o");
+	descr[14].descr = pstrdup_call("onomatopoeia");
 	descr[15].lexid = 112;
-	descr[15].alias = pstrdup("p");
-	descr[15].descr = pstrdup("prepositional");
+	descr[15].alias = pstrdup_call("p");
+	descr[15].descr = pstrdup_call("prepositional");
 	descr[16].lexid = 113;
-	descr[16].alias = pstrdup("q");
-	descr[16].descr = pstrdup("quantity");
+	descr[16].alias = pstrdup_call("q");
+	descr[16].descr = pstrdup_call("quantity");
 	descr[17].lexid = 114;
-	descr[17].alias = pstrdup("r");
-	descr[17].descr = pstrdup("pronoun");
+	descr[17].alias = pstrdup_call("r");
+	descr[17].descr = pstrdup_call("pronoun");
 	descr[18].lexid = 115;
-	descr[18].alias = pstrdup("s");
-	descr[18].descr = pstrdup("space");
+	descr[18].alias = pstrdup_call("s");
+	descr[18].descr = pstrdup_call("space");
 	descr[19].lexid = 116;
-	descr[19].alias = pstrdup("t");
-	descr[19].descr = pstrdup("time");
+	descr[19].alias = pstrdup_call("t");
+	descr[19].descr = pstrdup_call("time");
 	descr[20].lexid = 117;
-	descr[20].alias = pstrdup("u");
-	descr[20].descr = pstrdup("auxiliary");
+	descr[20].alias = pstrdup_call("u");
+	descr[20].descr = pstrdup_call("auxiliary");
 	descr[21].lexid = 118;
-	descr[21].alias = pstrdup("v");
-	descr[21].descr = pstrdup("verb");
+	descr[21].alias = pstrdup_call("v");
+	descr[21].descr = pstrdup_call("verb");
 	descr[22].lexid = 119;
-	descr[22].alias = pstrdup("w");
-	descr[22].descr = pstrdup("punctuation (qi ta biao dian)");
+	descr[22].alias = pstrdup_call("w");
+	descr[22].descr = pstrdup_call("punctuation (qi ta biao dian)");
 	descr[23].lexid = 120;
-	descr[23].alias = pstrdup("x");
-	descr[23].descr = pstrdup("unknown");
+	descr[23].alias = pstrdup_call("x");
+	descr[23].descr = pstrdup_call("unknown");
 	descr[24].lexid = 121;
-	descr[24].alias = pstrdup("y");
-	descr[24].descr = pstrdup("modal (yu qi)");
+	descr[24].alias = pstrdup_call("y");
+	descr[24].descr = pstrdup_call("modal (yu qi)");
 	descr[25].lexid = 122;
-	descr[25].alias = pstrdup("z");
-	descr[25].descr = pstrdup("status (zhuang tai)");
+	descr[25].alias = pstrdup_call("z");
+	descr[25].descr = pstrdup_call("status (zhuang tai)");
 	descr[26].lexid = 0;
 }
 //TODO :headline function
